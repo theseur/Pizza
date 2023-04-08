@@ -1,0 +1,11 @@
+body {
+    font-family: montserrat;
+    background-image: url('/image/pizza_backg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.find_us{
+    padding-left: 100px;
+    padding-top: 100px;
+}

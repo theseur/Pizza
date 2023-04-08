@@ -1,0 +1,67 @@
+body {
+    font-family: montserrat;
+    background-image: url('/image/pizza_backg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.text_1 h2{
+    font-size: 40px;
+    color: rgb(8, 209, 228);
+
+}
+
+.pizza_ordering_form{
+    padding-top: 30px;
+    font-size: 20px;
+    max-width: 1200px;
+}
+
+.category_filter h2{
+    padding-top: 30px;
+}
+
+.pizza_name{
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.pizza_name input{
+    font-size: 20px;
+    
+}
+
+
+.pizza_item_to_choosing{
+    box-sizing: border-box;
+    border-style: ridge;
+    border-color: #1b9bff;
+    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 30px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
+
+.amount_to_pizza{
+    width: 60px;
+}
+
+.pizza_name .order_button {
+    width: 100px;
+    background-color: rgb(8, 209, 228);
+}
+
+.pizza_item_to_choosing img{
+    max-width: 160px;
+    max-height: 160px;
+}
+
+.pizza_detail{
+    padding-top: 20px;
+
+}

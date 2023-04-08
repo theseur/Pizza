@@ -1,0 +1,32 @@
+body {
+    font-family: montserrat;
+    background-image: url('/image/pizza.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.table .table_head th{
+    font-size: 30px;
+    padding: 30px;
+}
+
+.comment{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.created_comment_form{
+    padding-top: 100px;
+    padding-left: 100px;
+}
+
+.create_comment_table{
+    padding-top: 100px;
+}
+
+.table .table_rows tr td{
+    font-size: 20px;
+    padding-left: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
