@@ -47,6 +47,14 @@ class DatabaseController extends Controller
         
         return view('ordered_pizza', $ordered_datas);
 
+       
+    }
+    public function get_pizzas()
+    {
+       
+        $datas = DB::table('pizza')->get();
+        return view("pizzalist", compact("datas"));;
+
     }
 
 }
