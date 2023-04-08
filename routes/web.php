@@ -39,4 +39,6 @@ Route::get('exercise01', function () { return '<h1>Hello world!</h1>'; });
 Route::get('exercise02', function () { return [1, 2, 3]; });
 Route::get('exercise1', function () { return view('view1'); });
 Route::get('exercise2p1', 'App\Http\Controllers\Controller2@print1');
-Route::get('pizzas', 'App\Http\Controllers\DatabaseController@get_pizzas');
+Route::get('pizzas', 'App\Http\Controllers\DatabaseController@get_pizzas')->name('pizzas');
+Route::get('editpizza/{pizzaid}','App\Http\Controllers\DatabaseController@edit_pizzas')->name('editpizza');
+Route::post('modifypizza/{pizzaid}','App\Http\Controllers\DatabaseController@modify_pizzas')->name('modifypizza');

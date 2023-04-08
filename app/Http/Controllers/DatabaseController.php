@@ -53,7 +53,19 @@ class DatabaseController extends Controller
     {
        
         $datas = DB::table('pizza')->get();
-        return view("pizzalist", compact("datas"));;
+        return view("pizzalist", compact("datas"));
+
+    }
+
+    public function edit_pizzas(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('pizza')->where('pname','=',$pizzaid )->first();
+        return view('editpizza', compact("pizza"));
+
+    }
+    public function modify_pizzas(Request $request, $pizzaid=0)
+    {
+        return $pizzaid;
 
     }
 
