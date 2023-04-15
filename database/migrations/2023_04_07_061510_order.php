@@ -15,10 +15,10 @@ class Order extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string(column: 'pizzaname');
-            $table->text(column: 'amount');
-            $table->text(column: 'taken');
-            $table->text(column: 'dispatched');
+            $table->string('pizzaname');
+            $table->string('amount');
+            $table->string('taken');
+            $table->string( 'dispatched');
             $table->timestamps();
         });
     }

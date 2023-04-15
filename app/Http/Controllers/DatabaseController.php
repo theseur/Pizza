@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use Illuminate\Support\Facades\Redirect;
 
 class DatabaseController extends Controller
 {
@@ -65,8 +66,31 @@ class DatabaseController extends Controller
     }
     public function modify_pizzas(Request $request, $pizzaid=0)
     {
-        return $pizzaid;
+        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) 
+        ->update(array
+        ('pname'=>$_POST["pname"],'categoryname'=>$_POST["categoryname"],
+        'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0
+        ));
+
+        //var_dump($_POST);
+        return Redirect::to('/pizzas');
+        
 
     }
+    public function delete_pizzas(Request $request, $pizzaid=0)
+    {
+        
+        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) ->delete();
+        return Redirect::to('/pizzas');
+        //return $pizzaid;
+    }
+
+    public function create_pizza()
+    {
+        return view("createpizza");
+
+    }
+
+
 
 }

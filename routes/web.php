@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('', function () {return view('main');});
 Route::get('main', function () {return view('main');});
 Route::get('about_us', function () {return view('about_us');});
 
@@ -42,3 +43,5 @@ Route::get('exercise2p1', 'App\Http\Controllers\Controller2@print1');
 Route::get('pizzas', 'App\Http\Controllers\DatabaseController@get_pizzas')->name('pizzas');
 Route::get('editpizza/{pizzaid}','App\Http\Controllers\DatabaseController@edit_pizzas')->name('editpizza');
 Route::post('modifypizza/{pizzaid}','App\Http\Controllers\DatabaseController@modify_pizzas')->name('modifypizza');
+Route::post('deletepizza/{pizzaid}','App\Http\Controllers\DatabaseController@delete_pizzas')->name('deletepizza');
+Route::get('createpizza','App\Http\Controllers\DatabaseController@create_pizza')->name('createpizza');
