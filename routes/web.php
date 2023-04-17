@@ -45,3 +45,5 @@ Route::get('editpizza/{pizzaid}','App\Http\Controllers\DatabaseController@edit_p
 Route::post('modifypizza/{pizzaid}','App\Http\Controllers\DatabaseController@modify_pizzas')->name('modifypizza');
 Route::post('deletepizza/{pizzaid}','App\Http\Controllers\DatabaseController@delete_pizzas')->name('deletepizza');
 Route::get('createpizza','App\Http\Controllers\DatabaseController@create_pizza')->name('createpizza');
+Route::post('insertpizza/','App\Http\Controllers\DatabaseController@insert_pizza')->name('insertpizza');
+Route::post('createuser/','App\Http\Controllers\DatabaseController@createuser')->name('createuser');

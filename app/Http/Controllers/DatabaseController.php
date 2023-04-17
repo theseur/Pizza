@@ -91,6 +91,48 @@ class DatabaseController extends Controller
 
     }
 
+    public function insert_pizza()
+    {
+        $pizza = DB::table('pizza')->where('pname','=',$_POST["pname"] ) ->count();
+        if($pizza==0)
+        {
+            $values = array('pname' => $_POST["pname"],'categoryname'=>$_POST["categoryname"], 
+            'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0);
+            $pizza = DB::table('pizza')->insert($values);
+            return Redirect::to('/pizzas');
+
+        }
+
+        else
+        {
+            return view("pizzaexists");
+
+
+        }
+        //var_dump($_POST);
+
+    }
+    public function createuser(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|unique:users,name|max:255',
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+
+        $pizza = DB::table('users')->insert($validated);
+       
+        //var_dump($validated);
+        return Redirect::to('/pizza_page');
+
+    }
+
+    
+
+  
+
+
 
 
 }
