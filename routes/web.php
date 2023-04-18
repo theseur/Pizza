@@ -47,3 +47,12 @@ Route::post('deletepizza/{pizzaid}','App\Http\Controllers\DatabaseController@del
 Route::get('createpizza','App\Http\Controllers\DatabaseController@create_pizza')->name('createpizza');
 Route::post('insertpizza/','App\Http\Controllers\DatabaseController@insert_pizza')->name('insertpizza');
 Route::post('createuser/','App\Http\Controllers\DatabaseController@createuser')->name('createuser');
+Route::post('userlogin/','App\Http\Controllers\DatabaseController@userlogin')->name('userlogin');
+Route::get('categories', 'App\Http\Controllers\DatabaseController@get_categories')->name('categories');
+Route::get('editcategories/{pizzaid}','App\Http\Controllers\DatabaseController@edit_categories')->name('editcategories');
+Route::post('modifycategories/{pizzaid}','App\Http\Controllers\DatabaseController@modify_categories')->name('modifycategories');
+Route::post('deletecategories/{pizzaid}','App\Http\Controllers\DatabaseController@delete_categories')->name('deletecategories');
+Route::get('createcategory','App\Http\Controllers\DatabaseController@create_categories')->name('createcategory');
+Route::post('insertcategories/','App\Http\Controllers\DatabaseController@insert_categories')->name('insertcategories');
+Route::get('comments', 'App\Http\Controllers\DatabaseController@get_comments')->name('comments');
+Route::get('createcomments','App\Http\Controllers\DatabaseController@create_comments')->name('createcomments');

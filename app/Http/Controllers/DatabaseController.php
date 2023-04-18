@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
+
 
 class DatabaseController extends Controller
 {
@@ -112,6 +116,7 @@ class DatabaseController extends Controller
         //var_dump($_POST);
 
     }
+     
     public function createuser(Request $request)
     {
         $validated = $request->validate([
@@ -128,11 +133,108 @@ class DatabaseController extends Controller
 
     }
 
+    public function userlogin(Request $request)
+    {
+        var_dump($_POST);
+        echo "<br>";
+        $credentials = $request->only('name', 'password');
+        var_dump($credentials);
+        echo "<br>";
+        var_dump(Auth::attempt($credentials));
+        $name=$request->name;
+        $pw=$_POST["password"];
+        $password= Hash::make($pw);
+        echo "<br>";
+        var_dump($name);
+        var_dump($password);
+        echo "<br>";
+        var_dump(Auth::attempt(['name' => $name, 'password' => $password]));
+ 
+        if (Auth::attempt(['name' => $name, 'password' => $password])) {
+            // Authentication passed...
+            return Redirect::to('/pizza_page');
+        }
+    }
+
+    public function get_categories()
+    {
+       
+        $datas = DB::table('category')->get();
+        //var_dump($datas);
+        return view("categorylist", compact("datas"));
+
+    }
+
+    public function edit_categories(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('category')->where('pname','=',$pizzaid )->first();
+        return view('editcategories', compact("pizza"));
+
+    }
+
+    public function modify_categories(Request $request, $pizzaid=0)
+    {
+       $catprice=(int)$_POST["price"];
+       $pizza = DB::table('category')->where('pname','=',$pizzaid ) 
+        ->update(array
+        ('pname'=>$_POST["pname"],'price'=>$catprice));
+
+        /*var_dump($_POST);
+        echo "<br>";
+        var_dump($catprice);*/
+        return Redirect::to('/categories');
+        
+
+    }
+    public function delete_categories(Request $request, $pizzaid=0)
+    {
+        
+        $pizza = DB::table('category')->where('pname','=',$pizzaid ) ->delete();
+        return Redirect::to('/categories');
+        //return $pizzaid;
+    }
+
+    public function create_categories()
+    {
+        return view("createcategory");
+
+    }
+
+    public function insert_categories()
+    {
+        $pizza = DB::table('category')->where('pname','=',$_POST["pname"] ) ->count();
+        if($pizza==0)
+        {
+            $catprice=(int)$_POST["price"];
+            $values = array('pname' => $_POST["pname"],'price'=>$catprice);
+            $pizza = DB::table('category')->insert($values);
+            return Redirect::to('/categories');
+
+        }
+
+        else
+        {
+            return view("categoryexists");
+
+
+        }
+        //var_dump($_POST);
+
+    }
+
+    public function get_comments()
+    {
+       
+        $datas = DB::table('comments')->get();
+        return view("commentslist", compact("datas"));
+
+    }
+    public function create_comments()
+    {
+        return view("createcomments");
+
+    }
+
     
-
-  
-
-
-
 
 }
