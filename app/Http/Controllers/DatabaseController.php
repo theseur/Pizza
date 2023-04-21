@@ -133,7 +133,7 @@ class DatabaseController extends Controller
 
     }
 
-    public function userlogin(Request $request)
+   /* public function userlogin(Request $request)
     {
         var_dump($_POST);
         echo "<br>";
@@ -154,7 +154,7 @@ class DatabaseController extends Controller
             // Authentication passed...
             return Redirect::to('/pizza_page');
         }
-    }
+    }*/
 
     public function get_categories()
     {
@@ -234,7 +234,99 @@ class DatabaseController extends Controller
         return view("createcomments");
 
     }
+    public function userlogin(Request $request)
+    {
+        if (!Auth::check()) 
+        {
+            return Redirect::to('failedlogin');
+
+        }
+         
+        else{
+            $datas = DB::table('users')->get();
+            //var_dump($datas);
+            return view("userlist", compact("datas"));
+            }
 
     
+
+    }
+
+    public function failedlogin ()
+    {
+        return view("failedloginpage");
+
+    }
+    public function get_users()
+    {
+       
+        $datas = DB::table('users')->get();
+        return view("userlist", compact("datas"));
+
+    }
+    public function edit_users(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('users')->where('name','=',$pizzaid )->first();
+        return view('editusers', compact("pizza"));
+
+    }
+    public function modify_users(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('users')->where('name','=',$pizzaid ) 
+        ->update(array
+        ('name'=>$_POST["name"],'email'=>$_POST["email"],
+        'password'=>$_POST["password"],
+        'admin'=>array_key_exists('admin',$_POST)?1:0,
+        'hidden'=>array_key_exists('hidden',$_POST)?1:0
+        ));
+
+        //var_dump($_POST);
+        return Redirect::to('/users');
+        
+
+    }
+    public function delete_users(Request $request, $pizzaid=0)
+    {
+        
+        $pizza = DB::table('users')->where('name','=',$pizzaid )
+        ->update(array
+        ('name'=>$_POST["name"],'email'=>$_POST["email"],
+        'password'=>$_POST["password"],
+        'admin'=>array_key_exists('admin',$_POST)?1:0,
+        'hidden'=>1
+        ));
+        return Redirect::to('/users');
+        //return $pizzaid;
+    }
+
+    public function create_realuser()
+    {
+        return view("createusers");
+
+    }
+
+    public function insert_insert_users()
+    {
+        $pizza = DB::table('pizza')->where('name','=',$_POST["name"] ) ->count();
+        if($pizza==0)
+        {
+            $values = array('name'=>$_POST["name"],'email'=>$_POST["email"],
+            'password'=>$_POST["password"],
+            'admin'=>array_key_exists('admin',$_POST)?1:0,
+            'hidden'=>array_key_exists('hidden',$_POST)?1:0);
+            $pizza = DB::table('pizza')->insert($values);
+            return Redirect::to('/users');
+
+        }
+
+        else
+        {
+            return view("userexists");
+
+
+        }
+        //var_dump($_POST);
+
+    }
 
 }
