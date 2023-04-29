@@ -10,10 +10,10 @@
 </head>
 <body>
     @include('header_login')
-    <form action="/login" method="post">
+    <form action="{{route('login')}}" method="post">
         @csrf
         <label for="">Email</label><br>
-        <input type="text" name="email" required><br>
+        <input type="text" name="name" required><br>
         <label for="">Password</label><br>
         <input type="text" name="password" required><br>
         <label for=""></label><input type="submit" value="LogIn">

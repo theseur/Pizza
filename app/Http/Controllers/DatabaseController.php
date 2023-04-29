@@ -305,7 +305,7 @@ class DatabaseController extends Controller
 
     }
 
-    public function insert_insert_users()
+    public function insert_users()
     {
         $pizza = DB::table('pizza')->where('name','=',$_POST["name"] ) ->count();
         if($pizza==0)
@@ -328,5 +328,18 @@ class DatabaseController extends Controller
         //var_dump($_POST);
 
     }
+    public function adminfrontpage()
+    {
+        return view("adminfrontpage");
+    }
+    public function get_orders()
+    {
+       
+        //$datas = DB::table('order')->paginate(15);
+        $datas=Order:: paginate(15);
+        return view("orderlist", compact("datas"));
+
+    }
+    
 
 }

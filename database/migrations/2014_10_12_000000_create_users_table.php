@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('admin')->default('0');;
             $table->boolean('hidden')->default('0');
+            $table->dateTime('updated_at', $precision = 0);
+            $table->dateTime('created_at', $precision = 0);
 
            
         });
