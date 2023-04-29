@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -40,6 +41,17 @@ class DatabaseController extends Controller
 
     }
 
+    public function save_the_comment(Request $request)
+    {
+        date_default_timezone_set('Europe/Budapest');
+        $time = time();
+        $actual_time = date('y-m-d G:i:s', $time);
+        $id_max = DB::table('comments')->max('id');
+        $new_id_to_insert = $id_max + 1;
+        Comment::insert(['id' => $new_id_to_insert, 'comment' => $request->text_box, 'userid' => 1, 'dateofwriting' =>$actual_time]);
+        return view('pizza_order');
+    }
+
     public function create_pizza_order(Request $request)
     {
         date_default_timezone_set('Europe/Budapest');
@@ -54,6 +66,8 @@ class DatabaseController extends Controller
 
        
     }
+
+    
     public function get_pizzas()
     {
        
@@ -62,178 +76,6 @@ class DatabaseController extends Controller
 
     }
 
-    public function edit_pizzas(Request $request, $pizzaid=0)
-    {
-        $pizza = DB::table('pizza')->where('pname','=',$pizzaid )->first();
-        return view('editpizza', compact("pizza"));
-
-    }
-    public function modify_pizzas(Request $request, $pizzaid=0)
-    {
-        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) 
-        ->update(array
-        ('pname'=>$_POST["pname"],'categoryname'=>$_POST["categoryname"],
-        'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0
-        ));
-
-        //var_dump($_POST);
-        return Redirect::to('/pizzas');
-        
-
-    }
-    public function delete_pizzas(Request $request, $pizzaid=0)
-    {
-        
-        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) ->delete();
-        return Redirect::to('/pizzas');
-        //return $pizzaid;
-    }
-
-    public function create_pizza()
-    {
-        return view("createpizza");
-
-    }
-
-    public function insert_pizza()
-    {
-        $pizza = DB::table('pizza')->where('pname','=',$_POST["pname"] ) ->count();
-        if($pizza==0)
-        {
-            $values = array('pname' => $_POST["pname"],'categoryname'=>$_POST["categoryname"], 
-            'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0);
-            $pizza = DB::table('pizza')->insert($values);
-            return Redirect::to('/pizzas');
-
-        }
-
-        else
-        {
-            return view("pizzaexists");
-
-
-        }
-        //var_dump($_POST);
-
-    }
-     
-    public function createuser(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|unique:users,name|max:255',
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-
-        $pizza = DB::table('users')->insert($validated);
-       
-        //var_dump($validated);
-        return Redirect::to('/pizza_page');
-
-    }
-
-   /* public function userlogin(Request $request)
-    {
-        var_dump($_POST);
-        echo "<br>";
-        $credentials = $request->only('name', 'password');
-        var_dump($credentials);
-        echo "<br>";
-        var_dump(Auth::attempt($credentials));
-        $name=$request->name;
-        $pw=$_POST["password"];
-        $password= Hash::make($pw);
-        echo "<br>";
-        var_dump($name);
-        var_dump($password);
-        echo "<br>";
-        var_dump(Auth::attempt(['name' => $name, 'password' => $password]));
- 
-        if (Auth::attempt(['name' => $name, 'password' => $password])) {
-            // Authentication passed...
-            return Redirect::to('/pizza_page');
-        }
-    }*/
-
-    public function get_categories()
-    {
-       
-        $datas = DB::table('category')->get();
-        //var_dump($datas);
-        return view("categorylist", compact("datas"));
-
-    }
-
-    public function edit_categories(Request $request, $pizzaid=0)
-    {
-        $pizza = DB::table('category')->where('pname','=',$pizzaid )->first();
-        return view('editcategories', compact("pizza"));
-
-    }
-
-    public function modify_categories(Request $request, $pizzaid=0)
-    {
-       $catprice=(int)$_POST["price"];
-       $pizza = DB::table('category')->where('pname','=',$pizzaid ) 
-        ->update(array
-        ('pname'=>$_POST["pname"],'price'=>$catprice));
-
-        /*var_dump($_POST);
-        echo "<br>";
-        var_dump($catprice);*/
-        return Redirect::to('/categories');
-        
-
-    }
-    public function delete_categories(Request $request, $pizzaid=0)
-    {
-        
-        $pizza = DB::table('category')->where('pname','=',$pizzaid ) ->delete();
-        return Redirect::to('/categories');
-        //return $pizzaid;
-    }
-
-    public function create_categories()
-    {
-        return view("createcategory");
-
-    }
-
-    public function insert_categories()
-    {
-        $pizza = DB::table('category')->where('pname','=',$_POST["pname"] ) ->count();
-        if($pizza==0)
-        {
-            $catprice=(int)$_POST["price"];
-            $values = array('pname' => $_POST["pname"],'price'=>$catprice);
-            $pizza = DB::table('category')->insert($values);
-            return Redirect::to('/categories');
-
-        }
-
-        else
-        {
-            return view("categoryexists");
-
-
-        }
-        //var_dump($_POST);
-
-    }
-
-    public function get_comments()
-    {
-       
-        $datas = DB::table('comments')->get();
-        return view("commentslist", compact("datas"));
-
-    }
-    public function create_comments()
-    {
-        return view("createcomments");
-
-    }
     public function userlogin(Request $request)
     {
         if (!Auth::check()) 
@@ -340,6 +182,8 @@ class DatabaseController extends Controller
         return view("orderlist", compact("datas"));
 
     }
+    
+
     
 
 }

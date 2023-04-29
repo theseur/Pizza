@@ -43,13 +43,17 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 Route::get('', function () {return view('main');});
 Route::get('main', function () {return view('main');});
 Route::get('about_us', function () {return view('about_us');});
+Route::get('pictures', function () {return view('pictures_about_pizzas');});
 
 //Route::get('pizza_page', function () {return view('pizza_page');});
 Route::get('pizza_page', function () {return view('pizza_order');});
 Route::post('category_filter', 'App\Http\Controllers\ControllerViews@category_filter');
 Route::post('pizza_ordering', 'App\Http\Controllers\DatabaseController@create_pizza_order');
 
-Route::post('pizza_details', function () {return view('pizza_details');});
+
+Route::get('comment_to_pizza', 'App\Http\Controllers\CommentController@comment_to_pizza');
+Route::get('save_experience', 'App\Http\Controllers\DatabaseController@save_the_comment')->name('save_experience');
+//Route::get('pizza_details', function () {return view('pizza_details');});
 
 Route::get('registration', function () {return view('registration');});
 
