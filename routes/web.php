@@ -85,8 +85,8 @@ Route::post('modifycategories/{pizzaid}','App\Http\Controllers\DatabaseControlle
 Route::post('deletecategories/{pizzaid}','App\Http\Controllers\DatabaseController@delete_categories')->name('deletecategories');
 Route::get('createcategory','App\Http\Controllers\DatabaseController@create_categories')->name('createcategory');
 Route::post('insertcategories/','App\Http\Controllers\DatabaseController@insert_categories')->name('insertcategories');
-Route::get('comments', 'App\Http\Controllers\DatabaseController@get_comments')->name('comments');
-Route::get('createcomments','App\Http\Controllers\DatabaseController@create_comments')->name('createcomments');
+
+
 Route::get('failedlogin', 'App\Http\Controllers\DatabaseController@failedlogin')->name('failedlogin');
 Route::get('users', 'App\Http\Controllers\DatabaseController@get_users')->name('users');
 Route::get('editusers/{pizzaid}','App\Http\Controllers\DatabaseController@edit_users')->name('editusers');
@@ -99,3 +99,10 @@ Route::get('orders', 'App\Http\Controllers\DatabaseController@get_orders')->name
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+ Route::get('userfrontpage','App\Http\Controllers\DatabaseController@userfrontpage')->name('userfrontpage');
+ Route::get('editcomments/{pizzaid}','App\Http\Controllers\DatabaseController@edit_comments')->name('editcomments');
+Route::post('modifycomments/{pizzaid}','App\Http\Controllers\DatabaseController@modify_comments')->name('modifycomments');
+Route::post('deletecomments/{pizzaid}','App\Http\Controllers\DatabaseController@delete_comments')->name('deletecomments');
+Route::post('insertcomments/','App\Http\Controllers\DatabaseController@insert_comments')->name('insertcomments');
+Route::get('createcomments','App\Http\Controllers\DatabaseController@create_comments')->name('createcomments');
+Route::get('comments', 'App\Http\Controllers\DatabaseController@get_comments')->name('comments');

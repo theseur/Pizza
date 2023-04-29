@@ -19,8 +19,8 @@
         <label for=""></label><input type="submit" value="LogIn">
         
     </form>
-    <form action="registration" method="get">
-        <label for=""></label><input type="submit" value="User Registration">
+    <form action="/register" method="get">
+        <label for=""></label><input type="submit" value="User Register">
     </form>
 </body>
 </html>

@@ -12,6 +12,8 @@
                     @if(Auth::user()->admin == 1)
 
   <script>window.location = "/adminfrontpage";</script>
+  @else 
+  <script>window.location = "/userfrontpage";</script>
 @endif
                 </div>
             </div>

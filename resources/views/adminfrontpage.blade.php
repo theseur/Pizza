@@ -9,13 +9,13 @@
 <body>
     @if(Auth::user()->admin == 0)
 
-    <script>window.location = "/dashboard";</script>
+    <script>window.location = "/userfrontpage";</script>
   @endif
-    logout<br>
+    Logout<br>
     <a href="{{route('users')}}">Users</a><br>
     <a href="{{route('categories')}}">Categories</a><br>
     <a href="{{route('pizzas')}}">Pizzas</a><br>
     <a href="{{route('comments')}}">Comments</a><br>
-    Orders<br>
+    <a href="{{route('orders')}}">Orders</a><br>
 </body>
 </html>

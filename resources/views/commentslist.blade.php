@@ -30,7 +30,13 @@
 <td style="padding-bottom: 10px;"> {{$data->dateofwriting}} </td>
 </form>
 </td>
-
+<td><a href="{{route('editcomments', [$data->id])}}" class="btn btn-success"> Szerkesztés </a>
+</td>
+<td><form action= "{{route('deletecomments',[$data->id])}}" method="POST">
+    @csrf <!-- {{ csrf_field() }} -->
+    <button class="btn btn-danger"> Törlés </button>
+    </form>
+</td>
 </tr>
 @endforeach
 @endif
