@@ -10,16 +10,14 @@
 </head>
 <body>
     @include('header_registration')
-    <form action="registered" method="post">
+    <form action="{{route('createuser')}}"  method="post">
         @csrf
         <label for="">User name</label><br>
-        <input type="text" name="pizzaname"><br>
+        <input type="text" name="name"><br>
         <label for="">Password</label><br>
-        <input type="text" name="amount"><br>
+        <input type="text" name="password"><br>
         <label for="">Email</label><br>
-        <input type="email" name="registration_email"><br>
-        <input type="hidden" name="taken" value="2023-04-04" />
-        <input type="hidden" name="dispatched" value="2023-04-05" />
+        <input type="email" name="email"><br>
         <input type="submit" value="Registration">
     </form>
 </body>

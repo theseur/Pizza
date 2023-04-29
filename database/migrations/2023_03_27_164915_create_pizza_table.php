@@ -14,7 +14,7 @@ class CreatePizzaTable extends Migration
     public function up()
     {
         Schema::create('pizza', function (Blueprint $table) {
-            $table->string('pname');
+            $table->string('pname')->primary();
             $table->string('categoryname');
             $table->boolean('vegetarian');
         });

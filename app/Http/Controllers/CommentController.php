@@ -12,6 +12,12 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+     public function comment_to_pizza(Request $request){
+        return view('comment_to_pizza', $request);
+
+     }
     public function index()
     {
         //
