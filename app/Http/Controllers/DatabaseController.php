@@ -76,177 +76,98 @@ class DatabaseController extends Controller
 
     }
 
-    public function edit_pizzas(Request $request, $pizzaid=0)
+    public function userlogin(Request $request)
     {
-        $pizza = DB::table('pizza')->where('pname','=',$pizzaid )->first();
-        return view('editpizza', compact("pizza"));
+        if (!Auth::check()) 
+        {
+            return Redirect::to('failedlogin');
+
+        }
+         
+        else{
+            $datas = DB::table('users')->get();
+            //var_dump($datas);
+            return view("userlist", compact("datas"));
+            }
+
+    
 
     }
-    public function modify_pizzas(Request $request, $pizzaid=0)
+
+    public function failedlogin ()
     {
-        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) 
+        return view("failedloginpage");
+
+    }
+    public function get_users()
+    {
+       
+        $datas = DB::table('users')->get();
+        return view("userlist", compact("datas"));
+
+    }
+    public function edit_users(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('users')->where('name','=',$pizzaid )->first();
+        return view('editusers', compact("pizza"));
+
+    }
+    public function modify_users(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('users')->where('name','=',$pizzaid ) 
         ->update(array
-        ('pname'=>$_POST["pname"],'categoryname'=>$_POST["categoryname"],
-        'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0
+        ('name'=>$_POST["name"],'email'=>$_POST["email"],
+        'password'=>$_POST["password"],
+        'admin'=>array_key_exists('admin',$_POST)?1:0,
+        'hidden'=>array_key_exists('hidden',$_POST)?1:0
         ));
 
         //var_dump($_POST);
-        return Redirect::to('/pizzas');
+        return Redirect::to('/users');
         
 
     }
-    public function delete_pizzas(Request $request, $pizzaid=0)
+    public function delete_users(Request $request, $pizzaid=0)
     {
         
-        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) ->delete();
-        return Redirect::to('/pizzas');
-        //return $pizzaid;
-    }
-
-    public function create_pizza()
-    {
-        return view("createpizza");
-
-    }
-
-    public function insert_pizza()
-    {
-        $pizza = DB::table('pizza')->where('pname','=',$_POST["pname"] ) ->count();
-        if($pizza==0)
-        {
-            $values = array('pname' => $_POST["pname"],'categoryname'=>$_POST["categoryname"], 
-            'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0);
-            $pizza = DB::table('pizza')->insert($values);
-            return Redirect::to('/pizzas');
-
-        }
-
-        else
-        {
-            return view("pizzaexists");
-
-
-        }
-        //var_dump($_POST);
-
-    }
-     
-    public function createuser(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|unique:users,name|max:255',
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-
-        $pizza = DB::table('users')->insert($validated);
-       
-        //var_dump($validated);
-        return Redirect::to('/pizza_page');
-
-    }
-
-    public function userlogin(Request $request)
-    {
-        var_dump($_POST);
-        echo "<br>";
-        $credentials = $request->only('name', 'password');
-        var_dump($credentials);
-        echo "<br>";
-        var_dump(Auth::attempt($credentials));
-        $name=$request->name;
-        $pw=$_POST["password"];
-        $password= Hash::make($pw);
-        echo "<br>";
-        var_dump($name);
-        var_dump($password);
-        echo "<br>";
-        var_dump(Auth::attempt(['name' => $name, 'password' => $password]));
- 
-        if (Auth::attempt(['name' => $name, 'password' => $password])) {
-            // Authentication passed...
-            return Redirect::to('/pizza_page');
-        }
-    }
-
-    public function get_categories()
-    {
-       
-        $datas = DB::table('category')->get();
-        //var_dump($datas);
-        return view("categorylist", compact("datas"));
-
-    }
-
-    public function edit_categories(Request $request, $pizzaid=0)
-    {
-        $pizza = DB::table('category')->where('pname','=',$pizzaid )->first();
-        return view('editcategories', compact("pizza"));
-
-    }
-
-    public function modify_categories(Request $request, $pizzaid=0)
-    {
-       $catprice=(int)$_POST["price"];
-       $pizza = DB::table('category')->where('pname','=',$pizzaid ) 
+        $pizza = DB::table('users')->where('name','=',$pizzaid )
         ->update(array
-        ('pname'=>$_POST["pname"],'price'=>$catprice));
-
-        /*var_dump($_POST);
-        echo "<br>";
-        var_dump($catprice);*/
-        return Redirect::to('/categories');
-        
-
-    }
-    public function delete_categories(Request $request, $pizzaid=0)
-    {
-        
-        $pizza = DB::table('category')->where('pname','=',$pizzaid ) ->delete();
-        return Redirect::to('/categories');
+        ('name'=>$_POST["name"],'email'=>$_POST["email"],
+        'password'=>$_POST["password"],
+        'admin'=>array_key_exists('admin',$_POST)?1:0,
+        'hidden'=>1
+        ));
+        return Redirect::to('/users');
         //return $pizzaid;
     }
 
-    public function create_categories()
+    public function create_realuser()
     {
-        return view("createcategory");
+        return view("createusers");
 
     }
 
-    public function insert_categories()
+    public function insert_insert_users()
     {
-        $pizza = DB::table('category')->where('pname','=',$_POST["pname"] ) ->count();
+        $pizza = DB::table('pizza')->where('name','=',$_POST["name"] ) ->count();
         if($pizza==0)
         {
-            $catprice=(int)$_POST["price"];
-            $values = array('pname' => $_POST["pname"],'price'=>$catprice);
-            $pizza = DB::table('category')->insert($values);
-            return Redirect::to('/categories');
+            $values = array('name'=>$_POST["name"],'email'=>$_POST["email"],
+            'password'=>$_POST["password"],
+            'admin'=>array_key_exists('admin',$_POST)?1:0,
+            'hidden'=>array_key_exists('hidden',$_POST)?1:0);
+            $pizza = DB::table('pizza')->insert($values);
+            return Redirect::to('/users');
 
         }
 
         else
         {
-            return view("categoryexists");
+            return view("userexists");
 
 
         }
         //var_dump($_POST);
-
-    }
-
-    public function get_comments()
-    {
-       
-        $datas = DB::table('comments')->get();
-        return view("commentslist", compact("datas"));
-
-    }
-    public function create_comments()
-    {
-        
-        return view("createcomments");
 
     }
 

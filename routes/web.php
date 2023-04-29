@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
 Route::get('', function () {return view('main');});
 Route::get('main', function () {return view('main');});
 Route::get('about_us', function () {return view('about_us');});
@@ -60,3 +69,10 @@ Route::get('createcategory','App\Http\Controllers\DatabaseController@create_cate
 Route::post('insertcategories/','App\Http\Controllers\DatabaseController@insert_categories')->name('insertcategories');
 Route::get('comments', 'App\Http\Controllers\DatabaseController@get_comments')->name('comments');
 Route::get('createcomments','App\Http\Controllers\DatabaseController@create_comments')->name('createcomments');
+Route::get('failedlogin', 'App\Http\Controllers\DatabaseController@failedlogin')->name('failedlogin');
+Route::get('users', 'App\Http\Controllers\DatabaseController@get_users')->name('users');
+Route::get('editusers/{pizzaid}','App\Http\Controllers\DatabaseController@edit_users')->name('editusers');
+Route::post('modifyusers/{pizzaid}','App\Http\Controllers\DatabaseController@modify_users')->name('modifyusers');
+Route::post('deleteusers/{pizzaid}','App\Http\Controllers\DatabaseController@delete_users')->name('deleteusers');
+Route::get('createrealuser','App\Http\Controllers\DatabaseController@create_realuser')->name('createrealuser');
+Route::post('insertusers/','App\Http\Controllers\DatabaseController@insert_users')->name('insertusers');
