@@ -76,6 +76,61 @@ class DatabaseController extends Controller
 
     }
 
+    public function edit_pizzas(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('pizza')->where('pname','=',$pizzaid )->first();
+        return view('editpizza', compact("pizza"));
+
+    }
+    public function modify_pizzas(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) 
+        ->update(array
+        ('pname'=>$_POST["pname"],'categoryname'=>$_POST["categoryname"],
+        'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0
+        ));
+
+        //var_dump($_POST);
+        return Redirect::to('/pizzas');
+        
+
+    }
+    public function delete_pizzas(Request $request, $pizzaid=0)
+    {
+        
+        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) ->delete();
+        return Redirect::to('/pizzas');
+        //return $pizzaid;
+    }
+
+    public function create_pizza()
+    {
+        return view("createpizza");
+
+    }
+
+    public function insert_pizza()
+    {
+        $pizza = DB::table('pizza')->where('pname','=',$_POST["pname"] ) ->count();
+        if($pizza==0)
+        {
+            $values = array('pname' => $_POST["pname"],'categoryname'=>$_POST["categoryname"], 
+            'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0);
+            $pizza = DB::table('pizza')->insert($values);
+            return Redirect::to('/pizzas');
+
+        }
+
+        else
+        {
+            return view("pizzaexists");
+
+
+        }
+        //var_dump($_POST);
+
+    }
+
     public function userlogin(Request $request)
     {
         if (!Auth::check()) 
