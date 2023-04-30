@@ -13,6 +13,8 @@
 </style>
 <body>
     @include('header_comment')
+    <a href="{{route('createcomments')}}">új komment</a><br>
+    <a href="{{route('adminfrontpager')}}">Vissza a főoldalra</a>
 <table>
     <tr style="color: red; font-size:30px;">
         <th style="padding-right: 15px; padding-bottom:20px;">User</th>
@@ -28,7 +30,13 @@
 <td style="padding-bottom: 10px;"> {{$data->dateofwriting}} </td>
 </form>
 </td>
-
+<td><a href="{{route('editcomments', [$data->id])}}" class="btn btn-success"> Szerkesztés </a>
+</td>
+<td><form action= "{{route('deletecomments',[$data->id])}}" method="POST">
+    @csrf <!-- {{ csrf_field() }} -->
+    <button class="btn btn-danger"> Törlés </button>
+    </form>
+</td>
 </tr>
 @endforeach
 @endif

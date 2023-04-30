@@ -202,9 +202,9 @@ class DatabaseController extends Controller
 
     }
 
-    public function insert_insert_users()
+    public function insert_users()
     {
-        $pizza = DB::table('pizza')->where('name','=',$_POST["name"] ) ->count();
+        $pizza = DB::table('users')->where('name','=',$_POST["name"] ) ->count();
         if($pizza==0)
         {
             $values = array('name'=>$_POST["name"],'email'=>$_POST["email"],
@@ -225,7 +225,168 @@ class DatabaseController extends Controller
         //var_dump($_POST);
 
     }
+    public function adminfrontpage()
+    {
+        return view("adminfrontpage");
+    }
+    public function get_orders()
+    {
+       
+        //$datas = DB::table('order')->paginate(15);
+        $datas=Order:: paginate(15);
+        return view("orderlist", compact("datas"));
 
+    }
+     public function userfrontpage()
+    {
+        return view("userfrontpage");
+    }
+    public function edit_pizzas(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('pizza')->where('pname','=',$pizzaid )->first();
+        return view('editpizza', compact("pizza"));
+    }
+    public function modify_pizzas(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) 
+        ->update(array
+        ('pname'=>$_POST["pname"],'categoryname'=>$_POST["categoryname"],
+        'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0
+        ));
+        //var_dump($_POST);
+        return Redirect::to('/pizzas');
+        
+    }
+    public function delete_pizzas(Request $request, $pizzaid=0)
+    {
+        
+        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) ->delete();
+        return Redirect::to('/pizzas');
+        //return $pizzaid;
+    }
+    public function create_pizza()
+    {
+        return view("createpizza");
+    }
+    public function insert_pizza()
+    {
+        $pizza = DB::table('pizza')->where('pname','=',$_POST["pname"] ) ->count();
+        if($pizza==0)
+        {
+            $values = array('pname' => $_POST["pname"],'categoryname'=>$_POST["categoryname"], 
+            'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0);
+            $pizza = DB::table('pizza')->insert($values);
+            return Redirect::to('/pizzas');
+        }
+        else
+        {
+            return view("pizzaexists");
+        }
+        
+    }
+    public function get_categories()
+    {
+       
+        $datas = DB::table('category')->get();
+        //var_dump($datas);
+        return view("categorylist", compact("datas"));
+    }
+    public function edit_categories(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('category')->where('pname','=',$pizzaid )->first();
+        return view('editcategories', compact("pizza"));
+    }
+    public function modify_categories(Request $request, $pizzaid=0)
+    {
+       $catprice=(int)$_POST["price"];
+       $pizza = DB::table('category')->where('pname','=',$pizzaid ) 
+        ->update(array
+        ('pname'=>$_POST["pname"],'price'=>$catprice));
+        /*var_dump($_POST);
+        echo "<br>";
+        var_dump($catprice);*/
+        return Redirect::to('/categories');
+        
+    }
+    public function delete_categories(Request $request, $pizzaid=0)
+    {
+        
+        $pizza = DB::table('category')->where('pname','=',$pizzaid ) ->delete();
+        return Redirect::to('/categories');
+        //return $pizzaid;
+    }
+    public function create_categories()
+    {
+        return view("createcategory");
+    }
+    public function insert_categories()
+    {
+        $pizza = DB::table('category')->where('pname','=',$_POST["pname"] ) ->count();
+        if($pizza==0)
+        {
+            $catprice=(int)$_POST["price"];
+            $values = array('pname' => $_POST["pname"],'price'=>$catprice);
+            $pizza = DB::table('category')->insert($values);
+            return Redirect::to('/categories');
+        }
+        else
+        {
+            return view("categoryexists");
+        }
+        //var_dump($_POST);
+    }
+    public function get_comments()
+    {
+       
+        $datas = DB::table('comments')->get();
+        return view("commentslist", compact("datas"));
+    }
+    public function create_comments()
+    {
+        return view("createcomments");
+
+    }
+    public function edit_comments(Request $request, $pizzaid=0)
+    {
+        $pizza = DB::table('comments')->where('id','=',$pizzaid )->first();
+        return view('editcomments', compact("pizza"));
+    }
+    public function modify_comments(Request $request, $pizzaid=0)
+    {
+       
+       $pizza = DB::table('comments')->where('id','=',$pizzaid ) 
+        ->update(array
+        ('comment'=>$_POST["comment"]));
+        /*var_dump($_POST);
+        echo "<br>";
+        var_dump($catprice);*/
+        return Redirect::to('/comments');
+        
+    }
+    public function delete_comments(Request $request, $pizzaid=0)
+    {
+        
+        $pizza = DB::table('comments')->where('id','=',$pizzaid ) ->delete();
+        return Redirect::to('/comments');
+        //return $pizzaid;
+    }
+    public function insert_comments()
+    {
+        $commId=(int)$_POST["id"];
+        $pizza = DB::table('comments')->where('id','=',$commId ) ->count();
+        if($pizza==0)
+        {
+            $values = array('comment' => $_POST["comment"]);
+            $pizza = DB::table('comments')->insert($values);
+            return Redirect::to('/comments');
+        }
+        else
+        {
+            return view("commentexists");
+        }
+        //var_dump($_POST);
+    }
+    
     
 
 }

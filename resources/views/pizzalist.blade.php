@@ -7,11 +7,9 @@
     <title>Pizza</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
-<body style="background-image: url('/image/pizza_backg.jpg');">
-    <form action="{{route('createpizza')}}">
-    <input type="submit" value="Új pizza">
-    </form>
-    <a href="{{route('createpizza')}}">új pizza</a>
+<body>
+    <a href="{{route('createpizza')}}">új pizza</a><br>
+    <a href="{{route('adminfrontpager')}}">Vissza a főoldalra</a>
     <table>
 @if(count($datas) > 0)
 @foreach($datas as $data)
