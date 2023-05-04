@@ -11,7 +11,9 @@
 
     <script>window.location = "/adminfrontpage";</script>
   @endif
-    logout<br>
+  <form action="/logout" method="get">
+    <input class="btn btn-success" type="submit" value="LogOut">
+  </form>
     
     <a href="{{route('comments')}}">Comments</a><br>
     
