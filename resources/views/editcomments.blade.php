@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
-    <form action= "{{route('modifycategories',[$pizza->id])}}" method="POST" >
+    <form action= "{{route('modifycomments',[$pizza->id])}}" method="POST" >
       @csrf <!-- {{ csrf_field() }} -->
     <label for="pname">Comment:</label><br>
   <input type="text" id="comment" name="comment" value="{{$pizza->comment}}"><br>
