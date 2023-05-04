@@ -43,6 +43,7 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 Route::get('', function () {return view('main');});
 Route::get('main', function () {return view('main');});
 Route::get('about_us', function () {return view('about_us');});
+Route::get('galerie', function () {return view('galerie');});
 Route::get('pictures', function () {return view('pictures_about_pizzas');});
 
 //Route::get('pizza_page', function () {return view('pizza_page');});

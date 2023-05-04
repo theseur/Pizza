@@ -13,8 +13,8 @@
     <div class="text">
     <h2>Welcome on our Pizza Restaurant's site</h2>
     <h3>You can choose the right pizza type for you under the pizza site</h3><br>
-    <h2>You can here visit how we create our pizzas:  <a href="https://www.youtube.com/watch?v=NgJ0knMHg8k">Pizza creating</a></h2><br>
-    <h2>Here you can visit some pictures about of pizzas: <a href="http://">Pictures</a></h2>
+    
+    
     </div>
 </body>
 </html>

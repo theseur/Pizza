@@ -241,49 +241,7 @@ class DatabaseController extends Controller
     {
         return view("userfrontpage");
     }
-    public function edit_pizzas(Request $request, $pizzaid=0)
-    {
-        $pizza = DB::table('pizza')->where('pname','=',$pizzaid )->first();
-        return view('editpizza', compact("pizza"));
-    }
-    public function modify_pizzas(Request $request, $pizzaid=0)
-    {
-        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) 
-        ->update(array
-        ('pname'=>$_POST["pname"],'categoryname'=>$_POST["categoryname"],
-        'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0
-        ));
-        //var_dump($_POST);
-        return Redirect::to('/pizzas');
-        
-    }
-    public function delete_pizzas(Request $request, $pizzaid=0)
-    {
-        
-        $pizza = DB::table('pizza')->where('pname','=',$pizzaid ) ->delete();
-        return Redirect::to('/pizzas');
-        //return $pizzaid;
-    }
-    public function create_pizza()
-    {
-        return view("createpizza");
-    }
-    public function insert_pizza()
-    {
-        $pizza = DB::table('pizza')->where('pname','=',$_POST["pname"] ) ->count();
-        if($pizza==0)
-        {
-            $values = array('pname' => $_POST["pname"],'categoryname'=>$_POST["categoryname"], 
-            'vegetarian'=>array_key_exists('vegetarian',$_POST)?1:0);
-            $pizza = DB::table('pizza')->insert($values);
-            return Redirect::to('/pizzas');
-        }
-        else
-        {
-            return view("pizzaexists");
-        }
-        
-    }
+    
     public function get_categories()
     {
        
@@ -296,10 +254,11 @@ class DatabaseController extends Controller
         $pizza = DB::table('category')->where('pname','=',$pizzaid )->first();
         return view('editcategories', compact("pizza"));
     }
+    
     public function modify_categories(Request $request, $pizzaid=0)
     {
        $catprice=(int)$_POST["price"];
-       $pizza = DB::table('category')->where('pname','=',$pizzaid ) 
+       $pizza = DB::table('category')->where('id','=',$pizzaid ) 
         ->update(array
         ('pname'=>$_POST["pname"],'price'=>$catprice));
         /*var_dump($_POST);
@@ -351,6 +310,7 @@ class DatabaseController extends Controller
         $pizza = DB::table('comments')->where('id','=',$pizzaid )->first();
         return view('editcomments', compact("pizza"));
     }
+
     public function modify_comments(Request $request, $pizzaid=0)
     {
        

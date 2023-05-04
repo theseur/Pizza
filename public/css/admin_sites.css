@@ -1,0 +1,72 @@
+body{
+    background-image: url('/image/pizza_backg.jpg');
+}
+
+.tablazat{
+    padding: 15px;
+
+}
+
+.gombok_1 input{
+    margin: 0;
+    color: white;
+    background-color: green;
+}
+
+td {
+    padding: 5px 30px;
+    color: white;
+    font-size:30px;
+}
+
+label{
+    font-size: 20px;
+    padding: 10px;
+    color: white;
+}
+
+input[type="text"]{
+    position: relative;
+    left: 40px;
+}
+
+input[type="number"]{
+    position: relative;
+    left: 40px;
+}
+
+input[type="email"]{
+    position: relative;
+    left: 40px;
+}
+
+input[type="password"]{
+    position: relative;
+    left: 40px;
+}
+
+.gombok_2{
+    position: absolute;
+    left: 100px;
+}
+
+form input{
+    position: relative;
+    left: 20px;
+    
+}
+
+h1{
+    font-size: 30px;
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-bottom: 10px;
+    color: red;
+}
+
+tr td{
+    font-size: 20px;
+    padding-left: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}

@@ -6,14 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Felhasználó</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="/css/admin_sites.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    <h1>Users in the datebase</h1>
     <form action="/register" method="get">
-        <label for=""></label><input type="submit" value="User Register">
+        <label for=""></label>
+        <input class="btn btn-success" type="submit" value="User Register">
     </form>
-    <a href="{{route('adminfrontpager')}}">Vissza a főoldalra</a>
+    <br>
+    <form action="{{route('adminfrontpager')}}">
+    <input class="btn btn-success" type="submit" value="Back to the user main page">
+        <!-- <a href="{{route('adminfrontpager')}}">Vissza a főoldalra</a> -->
+    </form>
     <table>
 @if(count($datas) > 0)
+<div class="tablazat">
 @foreach($datas as $data)
 <tr>
 <td> {{$data->name}} </td>
@@ -21,15 +29,16 @@
 <td> {{$data->password}} </td>
 <td> {{$data->admin}} </td>
 <td> {{$data->hidden}} </td>
-<td><a href="{{route('editusers', [$data->name])}}" class="btn btn-success"> Szerkesztés </a>
+<td><a href="{{route('editusers', [$data->name])}}" class="btn btn-success"> Edit </a>
 </td>
 <td><form action= "{{route('deleteusers',[$data->name])}}" method="POST">
     @csrf <!-- {{ csrf_field() }} -->
-    <button class="btn btn-danger"> Törlés </button>
+    <button class="btn btn-danger"> Delete </button>
     </form>
 
 </tr>
 @endforeach
+</div>
 @endif
 </table>
 

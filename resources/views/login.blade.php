@@ -15,7 +15,7 @@
         <label for="">Email</label><br>
         <input type="text" name="email" required><br>
         <label for="">Password</label><br>
-        <input type="text" name="password" required><br>
+        <input type="password" name="password" required><br>
         <label for=""></label><input type="submit" value="LogIn">
         
     </form>
